@@ -1,13 +1,29 @@
-Version: 1.0
+makeCacheMatrix <- function(x = matrix()) {
+invMatrix <- NULL
+setMatrix <- function(y) {
+  x <<- y
+  invMatrix <<- NULL
+}
+getMatrix <- function()x
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+setinverse <- function(inverse) invMatrix <<- inverse
+getinverse <- function() invMatrix
+list(setMatrix = setMatrix, getMatrix = getMatrix, setInverse = setInverse, getInverse = getInverse)
+}
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
 
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+## Write a short comment describing this function
+
+cacheSolve <- function(x, ...) {
+invMatrix <- x$getinverse()
+if(!is.null(invMatrix)) {
+  message("Getting Cached Invertible Matrix")
+  return(invMatrix)
+  } 
+(## Return a matrix that is the inverse of 'x'
+}
+MatrixData <- x$getMatrix()
+invMatrix <- solve(MatrixData, ...)
+x$setInverse(invMatrix)
+return(invMatrix)
+}
